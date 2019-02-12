@@ -1,0 +1,25 @@
+{
+  "name": "register-service",
+  "version": "1.0.0",
+  "description": "a microservice to handle clients registration",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec 'node -r dotenv/config' src/app.js --watch src",
+  },
+  "keywords": [
+    "register",
+    "hotel"
+  ],
+  "author": "Angel Ulise Tabares Gonzalez <taho2509@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "mongodb": "^3.1.13",
+    "nats": "^1.2.2",
+    "node-nats-streaming": "0.0.51",
+    "nodemon": "^1.18.9"
+  }
+}
