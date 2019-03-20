@@ -6,7 +6,7 @@ var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://localhost:27017/';
 
 router.get('/', function(req, res) {
-  MongoClient.connect(url, function(err, db) {
+  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
     if (err) throw err;
     var dbo = db.db('register');
     dbo
@@ -21,7 +21,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/:id([0-9]{3,})', function(req, res) {
-  MongoClient.connect(url, function(err, db) {
+  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
     if (err) throw err;
     var dbo = db.db('register');
     dbo
@@ -47,7 +47,7 @@ router.post('/', function(req, res) {
 
   var client = { id: id, name: name, lastname: lastname };
 
-  MongoClient.connect(url, function(err, db) {
+  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
     if (err) throw err;
     var dbo = db.db('register');
     dbo.collection('client').insertOne(client, function(err, res) {
