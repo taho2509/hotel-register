@@ -62,5 +62,37 @@ router.post('/', function(req, res) {
   });
 });
 
+router.delete('/:id([0-9]{1,})', function(req, res) {
+  MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db('register');
+    dbo
+      .collection('client')
+      .findOne({ id: req.params.id }, { projection: { _id: 0 } }, function(
+        err,
+        result
+      ) {
+        if (err) {
+          console.log(err);
+          res.status(404); //Set status to 404 as register was not found
+          res.json({ message: 'Not Found' });
+        }
+        console.log(result);
+        dbo.collection('client').deleteOne({ id: req.params.id }, function(
+          err,
+          result
+         ) {
+            if(err) {
+              console.log(err);
+              res.status(404); //Set status to 404 as register was not found
+              res.json({ message: 'Not Found' });
+           }
+           db.close();
+           res.json(result);
+         });
+      });
+  });
+});
+
 //Routes will go here
 module.exports = router;
