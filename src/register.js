@@ -3,7 +3,7 @@
 var express = require('express');
 var router = express.Router();
 var MongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://localhost:27017/';
+var url = process.env.MONGO_CONNECTION_STRING;
 
 router.get('/', function(req, res) {
   MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
