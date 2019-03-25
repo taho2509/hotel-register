@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
+const { ObjectId} = require('mongodb');
 
 router.post('/', function(req, res, next) {
   if (
-    !req.body.id ||
     !req.body.name ||
     !req.body.lastname ||
     !req.body.room.toString().match(/^[0-9]{3}$/g) ||
@@ -13,6 +13,7 @@ router.post('/', function(req, res, next) {
     res.status(400);
     res.json({ message: 'Bad Request' });
   } else {
+    req.body.id = ObjectId();
     next();
   }
 });
