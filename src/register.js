@@ -10,11 +10,27 @@ var registrationHandler = function(data) {
   MongoClient.connect(url, { useNewUrlParser: true }, function(err, db) {
     if (err) throw err;
     var dbo = db.db('register');
-    dbo.collection('client').insertOne(client, function(err, ans) {
-      if (err) throw err;
-      console.log(ans.insertedCount + ' Client inserted.');
-      console.log('location: ', '/registers/' + ans.insertedId);
-    });
+
+    dbo.collection('client')
+      .findOne({ name: data.name, lastname: data.lastname }, function(
+        err,
+        result
+      ) {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        if(result === null) {
+          dbo.collection('client').insertOne(client, function(err, ans) {
+            if (err) throw err;
+            console.log(ans.insertedCount + ' Client inserted.');
+            console.log('location: ', '/registers/' + ans.insertedId);
+          });
+        } else {
+          console.log('the client already exist');
+        }
+      });
+    
   });
 };
 
